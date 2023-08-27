@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct BlackJackModel {
+class BlackJackModel: ObservableObject {
     
-    var dealerHand:[String] = []
-    var playerHand:[String] = []
+    @Published var dealerHand:[String] = []
+    @Published var playerHand:[String] = []
     var deck:[String] = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮",
                          "🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾",
                          "🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎",
@@ -29,10 +29,16 @@ struct BlackJackModel {
         "🂡":0,"🂢":2,"🂣":3,"🂤":4,"🂥":5,"🂦":6,"🂧":7,"🂨":8,"🂩":9,"🂪":10,"🂫":10,"🂭":10,"🂮":10,
         "🂱":0,"🂲":2,"🂳":3,"🂴":4,"🂵":5,"🂶":6,"🂷":7,"🂸":8,"🂹":9,"🂺":10,"🂻":10,"🂽":10,"🂾":10,
         "🃁":0,"🃂":2,"🃃":3,"🃄":4,"🃅":5,"🃆":6,"🃇":7,"🃈":8,"🃉":9,"🃊":10,"🃋":10,"🃍":10,"🃎":10,
-        "🃑":0,"🃒":2,"🃓":3,"🃔":4,"🃕":5,"🃖":6,"🃗":7,"🃘":8,"🃙":9,"🃚":10,"🃛":10,"🃝":10,"🃞":10
-    ]
+        "🃑":0,"🃒":2,"🃓":3,"🃔":4,"🃕":5,"🃖":6,"🃗":7,"🃘":8,"🃙":9,"🃚":10,"🃛":10,"🃝":10,"🃞":10]
     
-    mutating func startNewGame() {
+    func startNewGame() {
+        self.deck = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮",
+                              "🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾",
+                              "🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎",
+                              "🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞"]
+        self.deck.shuffle()
+        self.playerHand.removeAll()
+        self.dealerHand.removeAll()
         self.dealerWinBust = false
         self.playerWinBust = false
         self.dealerWin = false
@@ -41,9 +47,6 @@ struct BlackJackModel {
         self.isWinner = false
         self.hitCount = 0
         self.blackJack = false
-        self.playerHand.removeAll()
-        self.dealerHand.removeAll()
-        self.deck.shuffle()
         self.playerHand.append(self.deck.removeLast())
         self.dealerHand.append(self.deck.removeLast())
         self.playerHand.append(self.deck.removeLast())
@@ -70,7 +73,7 @@ struct BlackJackModel {
         return score
     }
     
-    mutating func getResult() {
+    func getResult() {
         if playerScore > dealerScore && playerScore <= 21 {
             playerWin = true
             isWinner = true
@@ -89,11 +92,11 @@ struct BlackJackModel {
         }
     }
     
-    mutating func drawCard () {
+    func drawCard () {
         self.playerHand.append(self.deck.removeLast())
     }
     
-    mutating func checkWinner() {
+    func checkWinner() {
         if playerScore > 21 {
             dealerWinBust = true
             isWinner = true
@@ -119,7 +122,7 @@ struct BlackJackModel {
         }
     }
     
-    mutating func dealerTurn() {
+    func dealerTurn() {
         while dealerScore < 21 && playerScore > dealerScore {
         self.dealerHand.append(self.deck.removeLast())
         dealerScore = calculateHandValue(hand: dealerHand)

@@ -17,6 +17,7 @@
 		BB33367A2A8EBE6C00779B21 /* BlackJackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3336792A8EBE6C00779B21 /* BlackJackModel.swift */; };
 		BB33367C2A92788900779B21 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB33367B2A92788900779B21 /* CardView.swift */; };
 		BB33367E2A92789B00779B21 /* HandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB33367D2A92789B00779B21 /* HandView.swift */; };
+		BB41F1692A9807F300EB3407 /* HiddenCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB41F1682A9807F300EB3407 /* HiddenCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		BB3336792A8EBE6C00779B21 /* BlackJackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackModel.swift; sourceTree = "<group>"; };
 		BB33367B2A92788900779B21 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		BB33367D2A92789B00779B21 /* HandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandView.swift; sourceTree = "<group>"; };
+		BB41F1682A9807F300EB3407 /* HiddenCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				BB33364E2A8E619400779B21 /* blackjack3_0App.swift */,
 				BB3336502A8E619400779B21 /* BlackJackView.swift */,
 				BB33367B2A92788900779B21 /* CardView.swift */,
+				BB41F1682A9807F300EB3407 /* HiddenCard.swift */,
 				BB33367D2A92789B00779B21 /* HandView.swift */,
 				BB3336792A8EBE6C00779B21 /* BlackJackModel.swift */,
 				BB3336522A8E619600779B21 /* Assets.xcassets */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB3336512A8E619400779B21 /* BlackJackView.swift in Sources */,
+				BB41F1692A9807F300EB3407 /* HiddenCard.swift in Sources */,
 				BB33364F2A8E619400779B21 /* blackjack3_0App.swift in Sources */,
 				BB33367C2A92788900779B21 /* CardView.swift in Sources */,
 				BB33367E2A92789B00779B21 /* HandView.swift in Sources */,

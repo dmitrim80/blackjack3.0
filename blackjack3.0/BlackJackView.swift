@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct BlackJackView: View {
-    @State private var blackjackModel = BlackJackModel()
+    @StateObject private var blackjackModel = BlackJackModel()
+    @State var hide2ndCard: Bool = true
     @State private var gameStart:Bool = false
     @State private var isShowingContent:Bool = true
     @State var isWinner:Bool = false
+    
     
     var body: some View {
         ZStack {
@@ -20,22 +22,36 @@ struct BlackJackView: View {
             VStack(){
                 if gameStart {
                     HStack() {
-                    Text("Dealer Hand:")
+                        Text("Dealer Hand:")
                             .font(.title)
                             .bold()
                             .frame(width: 220)
+                        if hide2ndCard {
+                            if let cardValue = blackjackModel.cardValue[blackjackModel.dealerHand[0]], cardValue == 0 {
+                                Text("11")
+                                    .font(.title)
+                                    .bold()
+                                    .frame(width: 50)
+                            } else if let cardValue = blackjackModel.cardValue[blackjackModel.dealerHand[0]] {
+                                Text("\(cardValue)")
+                                    .font(.title)
+                                    .bold()
+                                    .frame(width: 50)
+                            }
+                        }
+                        else {
+                                Text("\(blackjackModel.dealerScore)")
+                                    .font(.title)
+                                    .bold()
+                                .frame(width: 50)}
                         
-                    Text("\(blackjackModel.dealerScore)")
-                            .font(.title)
-                            .bold()
-                            .frame(width: 50)
                     }.padding(.top,20)
                         .opacity(blackjackModel.isWinner ? 0:100)
                     
-                    HandView(hand: blackjackModel.dealerHand)
+                    HandView(hand: $blackjackModel.dealerHand, hide2ndCard:$hide2ndCard)
                         .padding(.top,70)
                         .padding(.bottom,340)
-                    HandView(hand: blackjackModel.playerHand)
+                    HandView(hand: $blackjackModel.playerHand)
                         .padding(.bottom,70)
                     VStack(){
                         HStack(){
@@ -57,6 +73,7 @@ struct BlackJackView: View {
                     
                 }
                 HStack{
+                    // Hit button action
                     Button{
                         if gameStart {
                             blackjackModel.drawCard()
@@ -64,11 +81,13 @@ struct BlackJackView: View {
                             blackjackModel.playerScore = blackjackModel.calculateHandValue(hand: blackjackModel.playerHand)
                             blackjackModel.checkWinner()
                             if blackjackModel.isWinner {
+                                hide2ndCard = false
                                 blackjackModel.getResult()
                                 isWinner = true
                             }
                         }
                         else {
+                            hide2ndCard = true
                             blackjackModel.startNewGame()
                             gameStart = true
                             isWinner = false
@@ -91,18 +110,16 @@ struct BlackJackView: View {
                         .opacity(isWinner ? 0:1)
                     
                     if gameStart {
+                        // Hold button action
                         Button {
+                            hide2ndCard = false
                             blackjackModel.dealerTurn()
                             blackjackModel.getResult()
                             isWinner = true
                         } label: {
                             if gameStart {
                                 Text("Hold")
-                                
-                            } else {
-                                Text("Deal")
                             }
-                            
                         }.frame(width: 100,height: 40)
                             .background(Color.blue)
                             .foregroundColor(.white)
@@ -112,6 +129,7 @@ struct BlackJackView: View {
                     }
                 }
             }
+            
             if blackjackModel.scoreTied {
                 ZStack{
                     Image(systemName: "flag.2.crossed.fill")
@@ -124,14 +142,22 @@ struct BlackJackView: View {
                         .foregroundColor(.black)
                         .font(.largeTitle)
                         .scaleEffect(2.0)
-                }.onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                }
+                .onAppear {
+                   
+                        hide2ndCard = false
+                    
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         blackjackModel.scoreTied = false
                         blackjackModel.startNewGame()
+                        hide2ndCard = true
                         isWinner = false
+                        
                     }
                 }
             }
+            
             if blackjackModel.dealerWin || blackjackModel.dealerWinBust {
                 ZStack(alignment: .center){
                     Image(systemName: "hand.thumbsdown.fill")
@@ -144,8 +170,9 @@ struct BlackJackView: View {
                         Text("BLACKJACK, Dealer Wins!")
                             .foregroundColor(.orange)
                             .font(.largeTitle)
-                            .scaleEffect(1.2)
-                    } else if blackjackModel.dealerWinBust {
+                            .scaleEffect(1.0)
+                        
+                    }else if blackjackModel.dealerWinBust {
                         Text("\(blackjackModel.playerScore) Bust...\n Dealer wins!")
                             .offset(y:-97)
                             .foregroundColor(.orange)
@@ -157,13 +184,18 @@ struct BlackJackView: View {
                             .foregroundColor(.black)
                             .font(.largeTitle)
                             .scaleEffect(1.2)
-                            
+                        
+                        
                     }
                 }.onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                    hide2ndCard = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         blackjackModel.scoreTied = false
-                        blackjackModel.startNewGame()
+                        hide2ndCard = true
                         isWinner = false
+                        blackjackModel.startNewGame()
+                        
+                        
                     }
                 }
             }
@@ -177,18 +209,20 @@ struct BlackJackView: View {
                         .opacity(1)
                     if blackjackModel.blackJack {
                         Text("BLACKJACK!")
-                            .foregroundColor(.red)
+                            .foregroundColor(.orange)
+                            .bold()
                             .font(.largeTitle)
-                            .scaleEffect(2.0)
+                            .scaleEffect(1.2)
+                        
                     } else if blackjackModel.playerWinBust {
                         Text("You win! \(blackjackModel.playerScore)\n Dealer Bust! \(blackjackModel.dealerScore)")
                             .offset(y:-75)
                             .foregroundColor(.orange)
                             .font(.largeTitle)
                             .bold()
-                            
-                            
-                        .scaleEffect(1.0)
+                        
+                        
+                            .scaleEffect(1.0)
                     }
                     else {
                         Text("You Win!")
@@ -196,12 +230,17 @@ struct BlackJackView: View {
                             .font(.largeTitle)
                         .scaleEffect(2.0)}
                 }.onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                    
+                    hide2ndCard = false
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         blackjackModel.scoreTied = false
                         blackjackModel.startNewGame()
+                        hide2ndCard = true
                         isWinner = false
+                        
                     }
-                }
+            }
             }
         }
     }
