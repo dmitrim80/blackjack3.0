@@ -18,13 +18,16 @@ class BlackJackModel: ObservableObject {
     var playerScore:Int = 0
     var dealerScore:Int = 0
     var blackJack: Bool = false
-    var dealerWin:Bool = false
-    var playerWin:Bool = false
-    var scoreTied:Bool = false
+    @Published var dealerWin:Bool = false
+    @Published var playerWin:Bool = false
+    @Published var scoreTied:Bool = false
     var isWinner:Bool = false
     var dealerWinBust:Bool = false
     var playerWinBust:Bool = false
     var hitCount:Int = 0
+    @Published var numPlayerWins:Int = 0
+    @Published var numDealerWins:Int = 0
+    var holdPressed:Bool = false
     let cardValue:[String:Int] = [
         "🂡":0,"🂢":2,"🂣":3,"🂤":4,"🂥":5,"🂦":6,"🂧":7,"🂨":8,"🂩":9,"🂪":10,"🂫":10,"🂭":10,"🂮":10,
         "🂱":0,"🂲":2,"🂳":3,"🂴":4,"🂵":5,"🂶":6,"🂷":7,"🂸":8,"🂹":9,"🂺":10,"🂻":10,"🂽":10,"🂾":10,
@@ -37,6 +40,7 @@ class BlackJackModel: ObservableObject {
                               "🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎",
                               "🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞"]
         self.deck.shuffle()
+        self.holdPressed = false
         self.playerHand.removeAll()
         self.dealerHand.removeAll()
         self.dealerWinBust = false
@@ -73,50 +77,44 @@ class BlackJackModel: ObservableObject {
         return score
     }
     
-    func getResult() {
-        if playerScore > dealerScore && playerScore <= 21 {
-            playerWin = true
-            isWinner = true
-        } else if playerScore == dealerScore && playerScore <= 21 {
-            scoreTied = true
-            isWinner = true
-        } else if dealerScore > playerScore && dealerScore <= 21 {
-            dealerWin = true
-            isWinner = true
-        } else if playerScore > 21 {
-             dealerWinBust = true
-            isWinner = true
-        } else if dealerScore > 21 {
-            playerWinBust = true
-            isWinner = true
-        }
-    }
-    
     func drawCard () {
         self.playerHand.append(self.deck.removeLast())
     }
     
     func checkWinner() {
-        if playerScore > 21 {
-            dealerWinBust = true
-            isWinner = true
-        } else if dealerScore > 21 {
-            playerWinBust = true
-            isWinner = true
+        if isWinner == true {
+            return
         } else if playerScore == 21 && playerHand.count == 2 && dealerScore < 21 {
+            // blackjack player, player wins
             blackJack = true
             playerWin = true
+            numPlayerWins += 1
             isWinner = true
-        }   else if dealerScore == 21 && dealerHand.count == 2 && playerScore < 21 {
-                blackJack = true
-                dealerWin = true
-                isWinner = true
-        }
-        else if dealerScore == 21 && playerScore < 21 {
+        } else if dealerScore == 21 && dealerHand.count == 2 && playerScore < 21 {
+            // blackjack dealer, dealer wins
+            blackJack = true
+            dealerWin = true
+            numDealerWins += 1
+            isWinner = true
+            // 2 blackjacks tie
+        } else if playerScore == 21 && dealerScore == 21 && playerHand.count == 2 && dealerHand.count == 2{
+            scoreTied = true
+            isWinner = true
+        } else if playerScore > 21 {
+            // player bust, dealer wins
+            dealerWinBust = true
+            isWinner = true
+            numDealerWins += 1
+        } else if dealerScore > 21 && playerScore <= 21  {
+            // dealer bust, player wins
+            playerWinBust = true
+            isWinner = true
+            numPlayerWins += 1
+        } else if dealerScore <= 21 && dealerScore > playerScore && holdPressed == true {
             dealerWin = true
             isWinner = true
-        } else if dealerScore == 21 && playerScore == 21 && playerHand.count == 2 {
-            blackJack = true
+            numDealerWins += 1
+        } else if dealerScore == playerScore && holdPressed == true {
             scoreTied = true
             isWinner = true
         }
@@ -129,16 +127,18 @@ class BlackJackModel: ObservableObject {
         checkWinner()
         }
     }
+    
+    func getRightAce(currentScore: Int, numAces:Int) -> Int {
+        let delta = 21 - currentScore
+        let elevanAce = 11 + (numAces - 1)
+        if elevanAce <= delta {
+            return elevanAce
+        }
+        return numAces
+    }
 }
 
-func getRightAce(currentScore: Int, numAces:Int) -> Int {
-    let delta = 21 - currentScore
-    let elevanAce = 11 + (numAces - 1)
-    if elevanAce <= delta {
-        return elevanAce
-    }
-    return numAces
-}
+
 
 
 
