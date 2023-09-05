@@ -9,20 +9,18 @@ import SwiftUI
 
 struct HiddenCard: View {
     private var backViewCard: String = "🂠"
-    
+    let width:CGFloat = 70
+    let height:CGFloat = 100
     var body: some View {
-        ZStack{
-            VStack{
-                Text(backViewCard)
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .font(.largeTitle)
-                    .fontWeight(.heavy)
-                    .scaleEffect(4.5)
-                    .foregroundColor(.blue)
-                    .shadow(color: .black, radius: 10, x: 10, y: 1)
-            }
-        }
+        Text("🂠")
+            .font(.system(size: min(width+40,height)))
+            .frame(width: width, height: height)
+            .offset(y:-5)
+            .background(Color.white)
+            .foregroundColor(.blue)
+            .cornerRadius(15)
+            .shadow(color: .black, radius: 5, x: 5, y: 1)
+        
     }
 }
 

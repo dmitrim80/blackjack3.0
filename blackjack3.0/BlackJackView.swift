@@ -190,21 +190,21 @@ struct BlackJackView: View {
                 Text("\(blackjackModel.dealerScore)")
                     .font(.title)
                     .bold()
-                .frame(width: 50)}
+                .frame(width: 50)
+                
+            }
             
         }.padding(.top,20)
             .opacity(blackjackModel.isWinner ? 0:100)
     }
     
     var DealerHand: some View {
-        HandView(hand: $blackjackModel.dealerHand, hide2ndCard:$hide2ndCard)
-            .padding(.top,70)
-            .padding(.bottom,340)
+        HandView(hand: $blackjackModel.dealerHand, hide2ndCard:$hide2ndCard).padding(.bottom,220)
     }
     
     var PlayerHand: some View {
         HandView(hand: $blackjackModel.playerHand)
-            .padding(.bottom,70)
+            
     }
     
     var PlayerScore: some View {

@@ -121,10 +121,15 @@ class BlackJackModel: ObservableObject {
     }
     
     func dealerTurn() {
-        while dealerScore < 21 && playerScore > dealerScore {
-        self.dealerHand.append(self.deck.removeLast())
-        dealerScore = calculateHandValue(hand: dealerHand)
-        checkWinner()
+        var timer = Timer()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
+               if self.dealerScore < 21 && self.playerScore > self.dealerScore {
+                   self.dealerHand.append(self.deck.removeLast())
+                   self.dealerScore = self.calculateHandValue(hand: self.dealerHand)
+                   self.checkWinner()
+               } else {
+                   timer.invalidate()
+               }
         }
     }
     
