@@ -86,6 +86,34 @@ struct CardFront: View {
             .frame(width: width,height: height)
             .offset(y:-5)
             .background(Color.white)
+            .foregroundColor(
+                card.contains("🂢") ||
+                card.contains("🂢") ||
+                card.contains("🂣") ||
+                card.contains("🂤") ||
+                card.contains("🂥") ||
+                card.contains("🂦") ||
+                card.contains("🂧") ||
+                card.contains("🂨") ||
+                card.contains("🂩") ||
+                card.contains("🂪") ||
+                card.contains("🂫") ||
+                card.contains("🂭") ||
+                card.contains("🂮") ||
+                card.contains("🃑") ||
+                card.contains("🃒") ||
+                card.contains("🃓") ||
+                card.contains("🃔") ||
+                card.contains("🃕") ||
+                card.contains("🃖") ||
+                card.contains("🃗") ||
+                card.contains("🃘") ||
+                card.contains("🃙") ||
+                card.contains("🃚") ||
+                card.contains("🃛") ||
+                card.contains("🃝") ||
+                card.contains("🃞") ?
+                    .black : .red)
             .cornerRadius(15)
             .shadow(color: .black, radius: 5, x: 5, y: 1)
             .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z:0))

@@ -1,69 +1,54 @@
 //
-//  ContentView.swift
+//  NewBlackJackView.swift
 //  blackjack3.0
 //
-//  Created by Dmitri Morozov on 8/17/23.
+//  Created by Dmitri Morozov on 9/11/23.
 //
 
 import SwiftUI
 
-struct BlackJackView: View {
+struct NewBlackJackView: View {
     @EnvironmentObject var blackjackModel: BlackJackModel
-    
     var body: some View {
-        ZStack {
+    ZStack{
             background
-            Spacer()
+            //Main Table, Score header section
+        VStack{VStack{HStack(){ScoreView()}}
+            //start of section 2, Dealer Hand Part
             VStack{
-                if !blackjackModel.playerHand.isEmpty {
-                    
-                    DealerScore
-                    
-                    DealerHand
-                    
-                    PlayerHand
-                    
-                    PlayerScore
-                    
-                }
-                HStack{
-                    if blackjackModel.gameStart {
-                    HitButton
-                    StandButton
-                    }
-                }
-            }
-            //Winning stars on the side of the screen
-            StarView()
-            //checking for winner at the start
-            CheckWinnerView()
-            //Score overlay & bets
+                HStack{if !blackjackModel.playerHand.isEmpty {DealerScore}}
+                HStack(){if !blackjackModel.playerHand.isEmpty {DealerHand}}
+                CheckWinnerView()
+                VStack{VStack{
+                    HStack{if !blackjackModel.playerHand.isEmpty {PlayerHand}}
+                    HStack{if !blackjackModel.playerHand.isEmpty {PlayerScore}}
+                    HStack{if blackjackModel.gameStart {
+                        HitButton
+                        StandButton}}}}}
+            //Bottom section, place your bet
             VStack{
-                ScoreView()
-                Spacer()
-                HStack{
-                PlaceYourBetView()
-                }
-            }.font(.caption)
-        }
-    }
+                HStack{PlaceYourBetView()
+                }.frame(maxWidth: .infinity,maxHeight: 40).padding(.bottom,50)
+                .padding(.bottom,1)
+            }.frame(maxWidth:.infinity,maxHeight: .infinity,alignment:.bottom)
+        }.frame(maxWidth: .infinity,maxHeight: .infinity)
+}}
+    
+    
     var DealerScore: some View {
         HStack() {
             Text("Dealer Hand:")
                 .font(.title)
                 .bold()
-                .frame(width: 220)
             if blackjackModel.hide2ndCard {
                 if let cardValue = blackjackModel.cardValue[blackjackModel.dealerHand[0]], cardValue == 0 {
                     Text("11")
                         .font(.title)
                         .bold()
-                        .frame(width: 50)
                 } else if let cardValue = blackjackModel.cardValue[blackjackModel.dealerHand[0]]{
                     Text("\(cardValue)")
                         .font(.title)
                         .bold()
-                        .frame(width: 50)
                 }
             }
             else {
@@ -73,17 +58,7 @@ struct BlackJackView: View {
                 .frame(width: 50)
             }
         }.padding(.top,20)
-           // .opacity(blackjackModel.isWinner ? 0:100)
-    }
-    
-    var DealerHand: some View {
-        HStack{
-            HandView(hand: $blackjackModel.dealerHand, hide2ndCard:$blackjackModel.hide2ndCard).padding(.bottom,220)
-        }
-    }
-    
-    var PlayerHand: some View {
-        HandView(hand: $blackjackModel.playerHand)
+           //.opacity(blackjackModel.isWinner ? 0:100)
     }
     
     var PlayerScore: some View {
@@ -92,7 +67,6 @@ struct BlackJackView: View {
                 Text("Player Hand:")
                     .font(.title)
                     .bold()
-                    .frame(width: 220)
                 Text("\(blackjackModel.playerScore)")
                     .font(.title)
                     .bold()
@@ -101,26 +75,29 @@ struct BlackJackView: View {
         }
     }
     
+    var PlayerHand: some View {
+        HandView(hand: $blackjackModel.playerHand)}
+    
+    var DealerHand: some View {
+        HStack{HandView(hand: $blackjackModel.dealerHand,
+                        hide2ndCard:$blackjackModel.hide2ndCard)}}
+    
+    var background: some View{
+        Color("DarkGreen").ignoresSafeArea()}
     
     var HitButton: some View {
-            // Hit button action
             Button{
                 blackjackModel.hitOrDeal()
-                
             }label: {
                 if blackjackModel.gameStart {
-                    
-                    Text("Hit")
-                }
-                
+                    Text("Hit")}
             }.frame(width: 100,height: 40)
                 .foregroundColor(.white)
                 .background(.blue)
                 .cornerRadius(10)
                 .font(.largeTitle)
                 .padding()
-                .opacity(blackjackModel.isWinner ? 0:100)
-    }
+                .opacity(blackjackModel.isWinner ? 0:100)}
     
     var StandButton: some View{
             Button {
@@ -130,24 +107,19 @@ struct BlackJackView: View {
                 blackjackModel.checkWinner()
             } label: {
                 if blackjackModel.gameStart {
-                    Text("Stand")
-                }
+                    Text("Stand")}
             }.frame(width: 100,height: 40)
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .font(.largeTitle)
-                .opacity(blackjackModel.isWinner ? 0:100)
-    }
+                .opacity(blackjackModel.isWinner ? 0:100)}
     
-    var background: some View{
-        Color("DarkGreen").ignoresSafeArea()
-    }
-}
+}//end of struct
 
-struct BlackJackView_Previews: PreviewProvider {
+struct NewBlackJackView_Previews: PreviewProvider {
     static var previews: some View {
-        BlackJackView()
+        NewBlackJackView()
             .environmentObject(BlackJackModel())
     }
 }

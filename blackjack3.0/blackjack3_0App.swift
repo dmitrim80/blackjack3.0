@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct blackjack3_0App: App {
+    @StateObject private var blackjackModel = BlackJackModel()
     var body: some Scene {
         WindowGroup {
             BlackJackView()
+                .environmentObject(blackjackModel)
         }
     }
 }

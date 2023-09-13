@@ -19,10 +19,10 @@ var body: some View {
         ForEach(0..<hand.count, id: \.self) { index in
             if hide2ndCard && index == 1 {
                     HiddenCard()
-                        .offset(x: CGFloat(index), y: 0)
+                        .offset(x: CGFloat(index) * -40, y: 0)
                 } else {
                 CardView(card: hand[index])
-                    .offset(x: CGFloat(index), y: 0)
+                    .offset(x: CGFloat(index) * -40, y: 0)
                 }
             }
         }

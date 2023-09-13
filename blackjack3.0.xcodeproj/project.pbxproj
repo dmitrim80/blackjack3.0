@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB1AD2B32AA6B3A300BA522D /* PlaceYourBetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1AD2B22AA6B3A300BA522D /* PlaceYourBetView.swift */; };
+		BB1AD2B52AA79BD200BA522D /* GameStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1AD2B42AA79BD200BA522D /* GameStartView.swift */; };
+		BB1AD2B72AAA24AC00BA522D /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1AD2B62AAA24AC00BA522D /* ScoreView.swift */; };
+		BB1AD2B92AAA634C00BA522D /* StarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1AD2B82AAA634C00BA522D /* StarView.swift */; };
+		BB1AD2BB2AAA644A00BA522D /* CheckWinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1AD2BA2AAA644A00BA522D /* CheckWinnerView.swift */; };
 		BB33364F2A8E619400779B21 /* blackjack3_0App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB33364E2A8E619400779B21 /* blackjack3_0App.swift */; };
 		BB3336512A8E619400779B21 /* BlackJackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3336502A8E619400779B21 /* BlackJackView.swift */; };
 		BB3336532A8E619600779B21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB3336522A8E619600779B21 /* Assets.xcassets */; };
@@ -18,6 +23,8 @@
 		BB33367C2A92788900779B21 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB33367B2A92788900779B21 /* CardView.swift */; };
 		BB33367E2A92789B00779B21 /* HandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB33367D2A92789B00779B21 /* HandView.swift */; };
 		BB41F1692A9807F300EB3407 /* HiddenCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB41F1682A9807F300EB3407 /* HiddenCard.swift */; };
+		BB8A5E2D2AAE285200418F17 /* BlackJackView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A5E2C2AAE285200418F17 /* BlackJackView2.swift */; };
+		BB8A5E2F2AAF733700418F17 /* NewBlackJackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8A5E2E2AAF733700418F17 /* NewBlackJackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB1AD2B22AA6B3A300BA522D /* PlaceYourBetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceYourBetView.swift; sourceTree = "<group>"; };
+		BB1AD2B42AA79BD200BA522D /* GameStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartView.swift; sourceTree = "<group>"; };
+		BB1AD2B62AAA24AC00BA522D /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		BB1AD2B82AAA634C00BA522D /* StarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarView.swift; sourceTree = "<group>"; };
+		BB1AD2BA2AAA644A00BA522D /* CheckWinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckWinnerView.swift; sourceTree = "<group>"; };
 		BB33364B2A8E619400779B21 /* blackjack3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = blackjack3.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB33364E2A8E619400779B21 /* blackjack3_0App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blackjack3_0App.swift; sourceTree = "<group>"; };
 		BB3336502A8E619400779B21 /* BlackJackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackView.swift; sourceTree = "<group>"; };
@@ -53,6 +65,8 @@
 		BB33367B2A92788900779B21 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		BB33367D2A92789B00779B21 /* HandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandView.swift; sourceTree = "<group>"; };
 		BB41F1682A9807F300EB3407 /* HiddenCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenCard.swift; sourceTree = "<group>"; };
+		BB8A5E2C2AAE285200418F17 /* BlackJackView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackJackView2.swift; sourceTree = "<group>"; };
+		BB8A5E2E2AAF733700418F17 /* NewBlackJackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlackJackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +119,16 @@
 			children = (
 				BB33364E2A8E619400779B21 /* blackjack3_0App.swift */,
 				BB3336502A8E619400779B21 /* BlackJackView.swift */,
+				BB8A5E2C2AAE285200418F17 /* BlackJackView2.swift */,
 				BB33367B2A92788900779B21 /* CardView.swift */,
+				BB8A5E2E2AAF733700418F17 /* NewBlackJackView.swift */,
+				BB1AD2B42AA79BD200BA522D /* GameStartView.swift */,
 				BB41F1682A9807F300EB3407 /* HiddenCard.swift */,
 				BB33367D2A92789B00779B21 /* HandView.swift */,
+				BB1AD2B82AAA634C00BA522D /* StarView.swift */,
+				BB1AD2B22AA6B3A300BA522D /* PlaceYourBetView.swift */,
+				BB1AD2B62AAA24AC00BA522D /* ScoreView.swift */,
+				BB1AD2BA2AAA644A00BA522D /* CheckWinnerView.swift */,
 				BB3336792A8EBE6C00779B21 /* BlackJackModel.swift */,
 				BB3336522A8E619600779B21 /* Assets.xcassets */,
 				BB3336542A8E619600779B21 /* blackjack3_0.entitlements */,
@@ -273,9 +294,16 @@
 			files = (
 				BB3336512A8E619400779B21 /* BlackJackView.swift in Sources */,
 				BB41F1692A9807F300EB3407 /* HiddenCard.swift in Sources */,
+				BB1AD2B72AAA24AC00BA522D /* ScoreView.swift in Sources */,
+				BB1AD2B52AA79BD200BA522D /* GameStartView.swift in Sources */,
 				BB33364F2A8E619400779B21 /* blackjack3_0App.swift in Sources */,
+				BB1AD2B32AA6B3A300BA522D /* PlaceYourBetView.swift in Sources */,
+				BB8A5E2D2AAE285200418F17 /* BlackJackView2.swift in Sources */,
+				BB1AD2BB2AAA644A00BA522D /* CheckWinnerView.swift in Sources */,
 				BB33367C2A92788900779B21 /* CardView.swift in Sources */,
 				BB33367E2A92789B00779B21 /* HandView.swift in Sources */,
+				BB1AD2B92AAA634C00BA522D /* StarView.swift in Sources */,
+				BB8A5E2F2AAF733700418F17 /* NewBlackJackView.swift in Sources */,
 				BB33367A2A8EBE6C00779B21 /* BlackJackModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,7 +473,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
@@ -483,7 +511,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;

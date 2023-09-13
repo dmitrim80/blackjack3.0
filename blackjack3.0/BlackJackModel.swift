@@ -8,26 +8,35 @@
 import Foundation
 
 class BlackJackModel: ObservableObject {
-    
+    @Published var gameStart: Bool = false
+    @Published var isWinner: Bool = false
+    @Published var hide2ndCard: Bool = true
+    @Published var bet:Float = 0
+    @Published var previousBet:Float = 0
+    @Published var playerMoney: Float = 1_000
+    @Published var placeBetMessage = "Place your bet"
+    @Published var betMessage = "Your bet: $"
     @Published var dealerHand:[String] = []
     @Published var playerHand:[String] = []
-    var deck:[String] = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮",
-                         "🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾",
-                         "🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎",
-                         "🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞"]
-    var playerScore:Int = 0
-    var dealerScore:Int = 0
-    var blackJack: Bool = false
+    @Published var deck:[String] = [
+                        "🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮",
+                        "🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾",
+                        "🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎",
+                        "🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞"]
+    @Published var playerScore:Int = 0
+    @Published var dealerScore:Int = 0
+    @Published var blackJack: Bool = false
     @Published var dealerWin:Bool = false
     @Published var playerWin:Bool = false
     @Published var scoreTied:Bool = false
-    var isWinner:Bool = false
-    var dealerWinBust:Bool = false
-    var playerWinBust:Bool = false
-    var hitCount:Int = 0
+    @Published var dealerWinBust:Bool = false
+    @Published var playerWinBust:Bool = false
+    @Published var hitCount:Int = 0
     @Published var numPlayerWins:Int = 0
     @Published var numDealerWins:Int = 0
-    var holdPressed:Bool = false
+    @Published var numTiedGames:Int = 0
+    @Published var holdPressed:Bool = false
+    
     let cardValue:[String:Int] = [
         "🂡":0,"🂢":2,"🂣":3,"🂤":4,"🂥":5,"🂦":6,"🂧":7,"🂨":8,"🂩":9,"🂪":10,"🂫":10,"🂭":10,"🂮":10,
         "🂱":0,"🂲":2,"🂳":3,"🂴":4,"🂵":5,"🂶":6,"🂷":7,"🂸":8,"🂹":9,"🂺":10,"🂻":10,"🂽":10,"🂾":10,
@@ -35,29 +44,46 @@ class BlackJackModel: ObservableObject {
         "🃑":0,"🃒":2,"🃓":3,"🃔":4,"🃕":5,"🃖":6,"🃗":7,"🃘":8,"🃙":9,"🃚":10,"🃛":10,"🃝":10,"🃞":10]
     
     func startNewGame() {
-        self.deck = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮",
-                              "🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾",
-                              "🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎",
-                              "🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞"]
-        self.deck.shuffle()
-        self.holdPressed = false
-        self.playerHand.removeAll()
-        self.dealerHand.removeAll()
-        self.dealerWinBust = false
-        self.playerWinBust = false
-        self.dealerWin = false
-        self.playerWin = false
-        self.scoreTied = false
-        self.isWinner = false
-        self.hitCount = 0
-        self.blackJack = false
-        self.playerHand.append(self.deck.removeLast())
-        self.dealerHand.append(self.deck.removeLast())
-        self.playerHand.append(self.deck.removeLast())
-        self.dealerHand.append(self.deck.removeLast())
-        dealerScore = calculateHandValue(hand: self.dealerHand)
-        playerScore = calculateHandValue(hand: self.playerHand)
-        checkWinner()
+        if bet > 0 {
+            self.deck = ["🂡","🂢","🂣","🂤","🂥","🂦","🂧","🂨","🂩","🂪","🂫","🂭","🂮",
+                         "🂱","🂲","🂳","🂴","🂵","🂶","🂷","🂸","🂹","🂺","🂻","🂽","🂾",
+                         "🃁","🃂","🃃","🃄","🃅","🃆","🃇","🃈","🃉","🃊","🃋","🃍","🃎",
+                         "🃑","🃒","🃓","🃔","🃕","🃖","🃗","🃘","🃙","🃚","🃛","🃝","🃞"]
+            self.deck.shuffle()
+            self.holdPressed = false
+            self.playerHand.removeAll()
+            self.dealerHand.removeAll()
+            self.playerScore = 0
+            self.dealerScore = 0
+            self.dealerWinBust = false
+            self.playerWinBust = false
+            self.dealerWin = false
+            self.playerWin = false
+            self.scoreTied = false
+            self.isWinner = false
+            self.hitCount = 0
+            self.blackJack = false
+            self.betMessage = "Your bet: $"
+            self.playerHand.append(self.deck.removeLast())
+            self.dealerHand.append(self.deck.removeLast())
+            self.playerHand.append(self.deck.removeLast())
+            self.dealerHand.append(self.deck.removeLast())
+            dealerScore = calculateHandValue(hand: self.dealerHand)
+            playerScore = calculateHandValue(hand: self.playerHand)
+            checkWinner()
+        }
+    }
+    
+    func hitOrDeal() {
+        if gameStart {
+            drawCard()
+            hitCount += 1
+            playerScore = calculateHandValue(hand: playerHand)
+            checkWinner()
+            if isWinner {
+                hide2ndCard = false
+            }
+        }
     }
     
     func calculateHandValue(hand: [String]) -> Int {
@@ -81,43 +107,70 @@ class BlackJackModel: ObservableObject {
         self.playerHand.append(self.deck.removeLast())
     }
     
+    func calculateBet() {
+        if playerWin && blackJack {
+            playerMoney = playerMoney + bet * 1.5
+            bet = 0
+        } else if playerWin {
+            playerMoney = playerMoney + bet
+            bet = 0
+        } else if dealerWin {
+            playerMoney -= bet
+            bet = 0
+        }
+    }
+    
     func checkWinner() {
-        if isWinner == true {
+        // returning inition winner so that cards can be displayed
+        if isWinner {
             return
-        } else if playerScore == 21 && playerHand.count == 2 && dealerScore < 21 {
+        }
+        else if playerScore == 21 && playerHand.count == 2 && dealerScore < 21 {
             // blackjack player, player wins
             blackJack = true
             playerWin = true
-            numPlayerWins += 1
             isWinner = true
+            numPlayerWins += 1
+            gameStart = false
         } else if dealerScore == 21 && dealerHand.count == 2 && playerScore < 21 {
             // blackjack dealer, dealer wins
             blackJack = true
             dealerWin = true
             numDealerWins += 1
             isWinner = true
-            // 2 blackjacks tie
+            gameStart = false
         } else if playerScore == 21 && dealerScore == 21 && playerHand.count == 2 && dealerHand.count == 2{
+            // 2 blackjacks tied
             scoreTied = true
             isWinner = true
+            numTiedGames += 1
+            gameStart = false
         } else if playerScore > 21 {
             // player bust, dealer wins
+            dealerWin = true
             dealerWinBust = true
             isWinner = true
             numDealerWins += 1
+            gameStart = false
         } else if dealerScore > 21 && playerScore <= 21  {
             // dealer bust, player wins
+            playerWin = true
             playerWinBust = true
             isWinner = true
             numPlayerWins += 1
+            gameStart = false
         } else if dealerScore <= 21 && dealerScore > playerScore && holdPressed == true {
             dealerWin = true
             isWinner = true
             numDealerWins += 1
+            gameStart = false
         } else if dealerScore == playerScore && holdPressed == true {
             scoreTied = true
             isWinner = true
+            numTiedGames += 1
+            gameStart = false
         }
+        calculateBet()
     }
     
     func dealerTurn() {
