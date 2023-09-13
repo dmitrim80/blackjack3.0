@@ -70,8 +70,8 @@ struct CardBack: View {
 }
 
 struct CardFront: View {
-    let width:CGFloat = 70
-    let height:CGFloat = 100
+    let width:CGFloat = 100
+    let height:CGFloat = 150
     @Binding var degree: Double
     
     private var card: String
@@ -82,10 +82,38 @@ struct CardFront: View {
     
     var body: some View {
         Text("\(card)")
-            .font(.system(size: min(width+20,height)))
+            .font(.system(size: min(width+40,height)))
             .frame(width: width,height: height)
             .offset(y:-5)
             .background(Color.white)
+            .foregroundColor(
+                card.contains("🂢") ||
+                card.contains("🂢") ||
+                card.contains("🂣") ||
+                card.contains("🂤") ||
+                card.contains("🂥") ||
+                card.contains("🂦") ||
+                card.contains("🂧") ||
+                card.contains("🂨") ||
+                card.contains("🂩") ||
+                card.contains("🂪") ||
+                card.contains("🂫") ||
+                card.contains("🂭") ||
+                card.contains("🂮") ||
+                card.contains("🃑") ||
+                card.contains("🃒") ||
+                card.contains("🃓") ||
+                card.contains("🃔") ||
+                card.contains("🃕") ||
+                card.contains("🃖") ||
+                card.contains("🃗") ||
+                card.contains("🃘") ||
+                card.contains("🃙") ||
+                card.contains("🃚") ||
+                card.contains("🃛") ||
+                card.contains("🃝") ||
+                card.contains("🃞") ?
+                    .black : .red)
             .cornerRadius(15)
             .shadow(color: .black, radius: 5, x: 5, y: 1)
             .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z:0))

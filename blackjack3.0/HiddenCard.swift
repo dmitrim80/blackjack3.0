@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HiddenCard: View {
     private var backViewCard: String = "🂠"
-    let width:CGFloat = 70
-    let height:CGFloat = 100
+    let width:CGFloat = 100
+    let height:CGFloat = 150
     var body: some View {
         Text("🂠")
             .font(.system(size: min(width+40,height)))
